@@ -93,7 +93,7 @@ export default function About() {
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s var(--ease-out) 0.4s',
             }}>
-              ADVA Developments is a premium real estate developer established in 2019, with a capital of EGP 500 million and an ambitious five-year investment plan exceeding EGP 2 billion. Now bringing that same commitment to excellence to the Sultanate of Oman.
+              ADVA Developments is a premium real estate developer established in 2019, with an OMR 10 million equivalent capital base and an ambitious investment plan exceeding OMR 40 million. Now bringing that same commitment to excellence to the Sultanate of Oman.
             </p>
             <p style={{
               fontFamily: 'var(--font-body)',

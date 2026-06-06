@@ -286,7 +286,7 @@ export default function Hero() {
           animation: loaded ? 'fadeUp 0.8s var(--ease-out) 1.2s both' : 'none',
         }}>
           {[
-            { value: 'EGP 2B+', label: 'Investment Portfolio' },
+            { value: 'OMR 40M+', label: 'Investment Portfolio' },
             { value: '2019', label: 'Established' },
             { value: '30+', label: 'Luxury Villas' },
             { value: '100%', label: 'Phase I Sold Out' },

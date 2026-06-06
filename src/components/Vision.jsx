@@ -135,8 +135,8 @@ export default function Vision() {
           transition: 'all 0.9s var(--ease-out) 0.8s',
         }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: '48px', fontWeight: 500, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px' }}>EGP 800M</div>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', color: 'rgba(5,13,26,0.58)', textTransform: 'uppercase' }}>Total Sales - ADVIDA Project</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: '48px', fontWeight: 500, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px' }}>OMR 16M</div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', color: 'rgba(5,13,26,0.58)', textTransform: 'uppercase' }}>Equivalent Sales - ADVIDA Project</div>
           </div>
 
           <div style={{ width: '1px', height: '80px', background: 'rgba(201,169,110,0.35)' }} />

@@ -201,7 +201,7 @@ export default function Contact() {
               {[
                 { value: '24h', label: 'Response window' },
                 { value: 'Oman', label: 'Focused expansion' },
-                { value: 'EGP 2B+', label: 'Planned portfolio' },
+                { value: 'OMR 40M+', label: 'Planned portfolio' },
               ].map((item) => (
                 <div
                   key={item.label}

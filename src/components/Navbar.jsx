@@ -3,6 +3,8 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'About', href: '#about' },
+  { label: 'Story', href: '#story' },
+  { label: 'Leadership', href: '#leadership' },
   { label: 'Projects', href: '#projects' },
   { label: 'Vision', href: '#vision' },
   { label: 'Sustainability', href: '#sustainability' },

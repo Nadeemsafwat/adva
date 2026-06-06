@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import CompanyStory from './components/CompanyStory';
+import Leadership from './components/Leadership';
 import Projects from './components/Projects';
 import Vision from './components/Vision';
 import Sustainability from './components/Sustainability';
@@ -15,6 +17,8 @@ export default function App() {
       <Contact />
       <Hero />
       <About />
+      <CompanyStory />
+      <Leadership />
       <Projects />
       <Vision />
       <Sustainability />

@@ -1,11 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Zap, Droplets, Wind, TreePine } from 'lucide-react';
+import { Droplets, TreePine, Wind, Zap } from 'lucide-react';
 
 const features = [
-  { icon: Zap, label: 'Smart Energy Systems', desc: 'Solar integration and intelligent energy management to minimize consumption across all developments.' },
-  { icon: Droplets, label: 'Water Conservation', desc: 'Advanced irrigation and recycling systems that preserve Oman\'s precious water resources.' },
-  { icon: Wind, label: 'Climate-Responsive Design', desc: 'Architecture that works with the natural environment — passive cooling, natural light, cross ventilation.' },
-  { icon: TreePine, label: 'Green Corridors', desc: 'Extensive landscaping with native flora creating biodiversity and natural cooling across all communities.' },
+  {
+    icon: Zap,
+    label: 'Smart Energy Systems',
+    color: '#d69a22',
+    bg: 'rgba(214,154,34,0.12)',
+    border: 'rgba(214,154,34,0.32)',
+    desc: 'Solar integration and intelligent energy management to minimize consumption across all developments.',
+  },
+  {
+    icon: Droplets,
+    label: 'Water Conservation',
+    color: '#1f8fd5',
+    bg: 'rgba(31,143,213,0.12)',
+    border: 'rgba(31,143,213,0.32)',
+    desc: "Advanced irrigation and recycling systems that preserve Oman's precious water resources.",
+  },
+  {
+    icon: Wind,
+    label: 'Climate-Responsive Design',
+    color: '#20a6a0',
+    bg: 'rgba(32,166,160,0.12)',
+    border: 'rgba(32,166,160,0.32)',
+    desc: 'Architecture that works with the natural environment - passive cooling, natural light, cross ventilation.',
+  },
+  {
+    icon: TreePine,
+    label: 'Green Corridors',
+    color: '#2f9b5f',
+    bg: 'rgba(47,155,95,0.12)',
+    border: 'rgba(47,155,95,0.32)',
+    desc: 'Extensive landscaping with native flora creating biodiversity and natural cooling across all communities.',
+  },
 ];
 
 export default function Sustainability() {
@@ -28,7 +56,6 @@ export default function Sustainability() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Large circle background */}
       <div style={{
         position: 'absolute',
         left: '-200px', top: '50%',
@@ -55,7 +82,6 @@ export default function Sustainability() {
           gap: '100px',
           alignItems: 'center',
         }}>
-          {/* Left */}
           <div>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '12px',
@@ -74,7 +100,7 @@ export default function Sustainability() {
               fontWeight: 300,
               lineHeight: 1.05,
               color: 'var(--navy-deepest)',
-              letterSpacing: '-0.02em',
+              letterSpacing: '0',
               marginBottom: '32px',
               opacity: visible ? 1 : 0,
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
@@ -94,16 +120,15 @@ export default function Sustainability() {
               opacity: visible ? 1 : 0,
               transition: 'opacity 0.8s ease 0.4s',
             }}>
-              Sustainability is not a checkbox at ADVA — it is the foundation of every decision we make. From land selection to material sourcing to smart infrastructure, we design with the future in mind.
+              Sustainability is not a checkbox at ADVA - it is the foundation of every decision we make. From land selection to material sourcing to smart infrastructure, we design with the future in mind.
             </p>
 
-            {/* Progress bars */}
             {[
               { label: 'Green Space Allocation', pct: 68 },
               { label: 'Energy Efficiency Rating', pct: 85 },
               { label: 'Sustainable Materials', pct: 72 },
             ].map((item, i) => (
-              <div key={i} style={{
+              <div key={item.label} style={{
                 marginBottom: '24px',
                 opacity: visible ? 1 : 0,
                 transition: `opacity 0.8s ease ${0.5 + i * 0.15}s`,
@@ -124,7 +149,6 @@ export default function Sustainability() {
             ))}
           </div>
 
-          {/* Right — Features grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -133,7 +157,7 @@ export default function Sustainability() {
             {features.map((feat, i) => {
               const Icon = feat.icon;
               return (
-                <div key={i} style={{
+                <div key={feat.label} style={{
                   padding: '40px 32px',
                   background: 'rgba(255,255,255,0.9)',
                   border: '1px solid rgba(201,169,110,0.2)',
@@ -143,12 +167,14 @@ export default function Sustainability() {
                   transition: `all 0.8s var(--ease-out) ${0.3 + i * 0.1}s`,
                 }}>
                   <div style={{
-                    width: '44px', height: '44px',
-                    border: '1px solid rgba(201,169,110,0.3)',
+                    width: '46px', height: '46px',
+                    border: `1px solid ${feat.border}`,
+                    background: feat.bg,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     marginBottom: '24px',
+                    boxShadow: `0 12px 28px ${feat.bg}`,
                   }}>
-                    <Icon size={18} color="var(--gold)" />
+                    <Icon size={20} color={feat.color} strokeWidth={2.2} />
                   </div>
                   <h4 style={{
                     fontFamily: 'var(--font-body)',

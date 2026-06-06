@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Links */}
           {[
             {
-              title: 'Company', links: ['About ADVA', 'Our Vision', 'Leadership', 'Partnerships', 'Careers']
+              title: 'Company', links: ['About ADVA', 'Our Story', 'Leadership', 'Our Vision', 'Partnerships']
             },
             {
               title: 'Projects', links: ['ADVIDA (Egypt)', 'ADVA Prime (Oman)', 'ADVA Gardens', 'Commercial', 'Upcoming']
