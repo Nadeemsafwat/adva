@@ -5,7 +5,7 @@ const credentials = [
   {
     icon: Landmark,
     label: 'Public Leadership',
-    text: 'Member of Parliament representing Giza Governorate.',
+    text: 'Member of Parliament in Egypt.',
   },
   {
     icon: Building2,
