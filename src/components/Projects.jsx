@@ -27,7 +27,7 @@ const projects = [
     units: 'Villas & Commercial',
     status: 'Launching 2025',
     description: "Positioned in one of Muscat's most connected districts — Al Khoud offers a bold vision for mixed-use living where contemporary design meets community-centred lifestyle.",
-    image: '/Images/al-khoud.jpg',
+    image: '/Images/AL-khoud.jpg',
     dark: true,
   },
   {
