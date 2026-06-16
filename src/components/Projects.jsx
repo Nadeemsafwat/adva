@@ -4,48 +4,45 @@ import { ArrowRight, MapPin } from 'lucide-react';
 const projects = [
   {
     id: 1,
-    name: 'ADVIDA',
-    location: 'Sheikh Zayed City, Cairo',
-    tag: 'Flagship · Sold Out',
+    name: 'BAUSHER',
+    location: 'Bausher, Muscat',
+    tag: 'Residential · Oman',
     tagColor: '#c9a96e',
-    type: 'Residential Compound',
-    area: '21,000 SQM',
-    units: '30 Standalone Villas',
-    status: 'Delivered 2024',
-    description: 'An exclusive boutique compound featuring only 30 independent villas, each designed for maximum privacy, comfort, and scenic views of lush landscaped surroundings.',
-    highlight: true,
-    gradient: 'linear-gradient(135deg, #ffffff 0%, #f5ead8 100%)',
-    dark: false,
+    type: 'Residential Development',
+    area: 'TBA',
+    units: 'Villas & Townhouses',
+    status: 'Launching 2025',
+    description: 'A distinguished residential development in the heart of Bausher — combining modern architecture with the warmth of Omani living, set within a thriving urban community.',
+    image: '/Images/Bushar.png',
+    dark: true,
   },
   {
     id: 2,
-    name: 'ADVA PRIME',
-    location: 'Muscat, Oman',
-    tag: 'Coming Soon',
+    name: 'AL KHOUD',
+    location: 'Al Khoud, Muscat',
+    tag: 'Mixed-Use · Oman',
     tagColor: '#e2c89a',
     type: 'Mixed-Use Development',
-    area: '20 Acres',
+    area: 'TBA',
     units: 'Villas & Commercial',
     status: 'Launching 2025',
-    description: "A landmark mixed-use development set against the dramatic backdrop of Muscat's landscape — where contemporary architecture meets Omani heritage.",
-    highlight: false,
-    gradient: 'linear-gradient(135deg, #0f2040 0%, #1e3f6e 100%)',
+    description: "Positioned in one of Muscat's most connected districts — Al Khoud offers a bold vision for mixed-use living where contemporary design meets community-centred lifestyle.",
+    image: '/Images/al-khoud.jpg',
     dark: true,
   },
   {
     id: 3,
-    name: 'ADVA GARDENS',
-    location: 'Al Seeb, Muscat',
-    tag: 'Planning',
+    name: 'AL KHUWAIR',
+    location: 'Al Khuwair, Muscat',
+    tag: 'Premium · Oman',
     tagColor: '#a0b8d8',
     type: 'Residential Community',
-    area: '35,000 SQM',
-    units: 'Villas & Townhouses',
+    area: 'TBA',
+    units: 'Luxury Apartments & Villas',
     status: 'Announcing 2025',
-    description: "A serene residential community designed around green corridors and water features — offering a tranquil escape within Muscat's fastest-growing district.",
-    highlight: false,
-    gradient: 'linear-gradient(135deg, #ffffff 0%, #eef3f8 100%)',
-    dark: false,
+    description: 'A premium address in Al Khuwair — Muscat\'s prestigious diplomatic and commercial corridor — offering elevated residences crafted for discerning buyers.',
+    image: '/Images/khowair.jpeg',
+    dark: true,
   },
 ];
 
@@ -57,8 +54,6 @@ function ProjectCard({ project, index, visible }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: project.gradient,
-        border: `1px solid ${hovered ? 'rgba(201,169,110,0.5)' : 'rgba(201,169,110,0.18)'}`,
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -68,10 +63,50 @@ function ProjectCard({ project, index, visible }) {
           : 'translateY(50px)',
         opacity: visible ? 1 : 0,
         transitionDelay: `${index * 0.15}s`,
-        boxShadow: hovered ? '0 24px 60px rgba(5,13,26,0.18)' : '0 14px 38px rgba(5,13,26,0.06)',
+        boxShadow: hovered ? '0 32px 70px rgba(5,13,26,0.38)' : '0 14px 38px rgba(5,13,26,0.18)',
+        border: `1px solid ${hovered ? 'rgba(201,169,110,0.5)' : 'rgba(201,169,110,0.18)'}`,
+        minHeight: '560px',
+        display: 'flex',
+        flexDirection: 'column',
       }}>
+
+      {/* Background photo */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `url(${project.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        transition: 'transform 0.7s var(--ease-out)',
+        transform: hovered ? 'scale(1.04)' : 'scale(1)',
+      }} />
+
+      {/* Dark overlay — lightens on hover to reveal more photo */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: hovered
+          ? 'linear-gradient(180deg, rgba(5,13,26,0.38) 0%, rgba(5,13,26,0.72) 100%)'
+          : 'linear-gradient(180deg, rgba(5,13,26,0.48) 0%, rgba(5,13,26,0.82) 100%)',
+        transition: 'background 0.5s ease',
+      }} />
+
+      {/* Gold diagonal pattern on hover */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `repeating-linear-gradient(
+          45deg, transparent, transparent 40px,
+          rgba(201,169,110,0.06) 40px, rgba(201,169,110,0.06) 41px
+        )`,
+        opacity: hovered ? 1 : 0,
+        transition: 'opacity 0.4s',
+        pointerEvents: 'none',
+      }} />
+
       {/* Top accent line */}
       <div style={{
+        position: 'relative',
+        zIndex: 1,
         height: '2px',
         background: hovered
           ? `linear-gradient(90deg, ${project.tagColor}, transparent)`
@@ -79,19 +114,8 @@ function ProjectCard({ project, index, visible }) {
         transition: 'background 0.4s ease',
       }} />
 
-      {/* Pattern */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: `repeating-linear-gradient(
-          45deg, transparent, transparent 40px,
-          rgba(201,169,110,0.08) 40px, rgba(201,169,110,0.08) 41px
-        )`,
-        opacity: hovered ? 1 : 0,
-        transition: 'opacity 0.4s',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{ padding: '48px 40px' }}>
+      {/* Content */}
+      <div style={{ padding: '48px 40px', position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Tag */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -113,7 +137,7 @@ function ProjectCard({ project, index, visible }) {
           fontFamily: 'var(--font-display)',
           fontSize: '48px',
           fontWeight: 300,
-          color: project.dark ? 'var(--white)' : 'var(--navy-deepest)',
+          color: 'var(--white)',
           lineHeight: 1,
           marginBottom: '8px',
           letterSpacing: '-0.01em',
@@ -134,8 +158,9 @@ function ProjectCard({ project, index, visible }) {
           fontSize: '14px',
           fontWeight: 300,
           lineHeight: 1.8,
-          color: project.dark ? 'var(--white-70)' : 'var(--ink-soft)',
+          color: 'var(--white-70)',
           marginBottom: '40px',
+          flex: 1,
         }}>{project.description}</p>
 
         {/* Specs */}
@@ -145,7 +170,7 @@ function ProjectCard({ project, index, visible }) {
           gap: '20px',
           marginBottom: '40px',
           paddingTop: '32px',
-          borderTop: `1px solid ${project.dark ? 'rgba(255,255,255,0.08)' : 'rgba(5,13,26,0.1)'}`,
+          borderTop: '1px solid rgba(255,255,255,0.12)',
         }}>
           {[
             { label: 'Type', val: project.type },
@@ -154,10 +179,10 @@ function ProjectCard({ project, index, visible }) {
             { label: 'Status', val: project.status },
           ].map(spec => (
             <div key={spec.label}>
-              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', letterSpacing: '0.25em', color: project.dark ? 'rgba(255,255,255,0.35)' : 'rgba(5,13,26,0.42)', textTransform: 'uppercase', marginBottom: '4px' }}>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', letterSpacing: '0.25em', color: 'rgba(255,255,255,0.38)', textTransform: 'uppercase', marginBottom: '4px' }}>
                 {spec.label}
               </div>
-              <div style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 600, color: project.dark ? 'var(--white-90)' : 'var(--navy-deep)', letterSpacing: '0.02em' }}>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 600, color: 'var(--white-90)', letterSpacing: '0.02em' }}>
                 {spec.val}
               </div>
             </div>
@@ -167,7 +192,7 @@ function ProjectCard({ project, index, visible }) {
         {/* CTA */}
         <div style={{
           display: 'flex', alignItems: 'center', gap: '10px',
-          color: hovered ? 'var(--gold)' : (project.dark ? 'var(--white-70)' : 'rgba(5,13,26,0.68)'),
+          color: hovered ? 'var(--gold)' : 'var(--white-70)',
           transition: 'color 0.3s',
         }}>
           <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 500 }}>
