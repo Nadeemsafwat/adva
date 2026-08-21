@@ -1,27 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Building2, Landmark, MessageSquareText, UsersRound } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const credentials = [
-  {
-    icon: Landmark,
-    label: 'Public Leadership',
-    text: 'Member of Parliament in Egypt.',
-  },
-  {
-    icon: Building2,
-    label: 'Housing Expertise',
-    text: 'Serves on the Housing, Public Utilities, and Reconstruction Committee.',
-  },
-  {
-    icon: UsersRound,
-    label: 'Community Focus',
-    text: 'Actively engaged with residents, municipalities, and local service priorities.',
-  },
-];
+const credentialIcons = [Landmark, Building2, UsersRound];
 
 export default function Leadership() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
+  const credentials = t('leadership.credentials');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -91,7 +78,7 @@ export default function Leadership() {
                   fontWeight: 700,
                 }}
               >
-                Leadership
+                {t('leadership.kicker')}
               </span>
             </div>
 
@@ -106,7 +93,7 @@ export default function Leadership() {
                 marginBottom: '30px',
               }}
             >
-              Ahmed El Shenawy
+              {t('leadership.name')}
             </h2>
 
             <p
@@ -120,7 +107,7 @@ export default function Leadership() {
                 marginBottom: '34px',
               }}
             >
-              Ahmed El Shenawy brings a civic-minded approach to development. As an Egyptian Member of Parliament affiliated with the Mostaqbal Watan Party, his work connects public policy, housing priorities, and the everyday needs of growing communities.
+              {t('leadership.bio1')}
             </p>
 
             <div
@@ -142,7 +129,7 @@ export default function Leadership() {
                   fontStyle: 'italic',
                 }}
               >
-                Development is strongest when it listens first: to residents, city authorities, infrastructure needs, and the long-term character of a place.
+                {t('leadership.quote')}
               </p>
             </div>
           </div>
@@ -187,7 +174,7 @@ export default function Leadership() {
                 >
                   <img
                     src="/Images/AS.jpeg"
-                    alt="Ahmed El Shenawy"
+                    alt={t('leadership.name')}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -217,7 +204,7 @@ export default function Leadership() {
                       marginBottom: '12px',
                     }}
                   >
-                    Chairman & CEO
+                    {t('leadership.cardTitle')}
                   </div>
                   <h3
                     style={{
@@ -228,7 +215,7 @@ export default function Leadership() {
                       color: 'var(--navy-deepest)',
                     }}
                   >
-                    Civic leadership with a development lens.
+                    {t('leadership.cardHeading')}
                   </h3>
                 </div>
               </div>
@@ -242,12 +229,12 @@ export default function Leadership() {
                   marginBottom: '30px',
                 }}
               >
-                His public service includes direct engagement with municipal authorities and residents, including forums with the 6 October City Authority addressing sanitation, road development, and public services in the South Neighborhoods.
+                {t('leadership.bio2')}
               </p>
 
               <div style={{ display: 'grid', gap: '12px' }}>
-                {credentials.map((item) => {
-                  const Icon = item.icon;
+                {credentials.map((item, i) => {
+                  const Icon = credentialIcons[i];
                   return (
                     <div
                       key={item.label}

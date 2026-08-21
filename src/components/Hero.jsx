@@ -1,31 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const slides = [
-  {
-    headline: 'Where Vision\nMeets Land',
-    sub: 'Redefining luxury living in the Sultanate of Oman',
-    location: 'Muscat · Oman',
-    bg: 'linear-gradient(115deg, #fbf7ef 0%, #efe1c8 38%, #1a3358 38%, #0a1628 100%)',
-    accent: 'Residential Excellence',
-  },
-  {
-    headline: 'Built for\nGenerations',
-    sub: 'Premium communities crafted with sustainability at their core',
-    location: 'Al Seeb · Muscat',
-    bg: 'linear-gradient(115deg, #f5ead8 0%, #eef3f8 40%, #0f2040 40%, #1e3f6e 100%)',
-    accent: 'Mixed-Use Developments',
-  },
-  {
-    headline: 'Designed\nto Endure',
-    sub: 'Architectural innovation meets the Omani landscape',
-    location: 'Muscat · Oman',
-    bg: 'linear-gradient(115deg, #fbf7ef 0%, #e2c89a 34%, #0d1e36 34%, #162d4f 100%)',
-    accent: 'Luxury Villas & Compounds',
-  },
+const backgrounds = [
+  'linear-gradient(115deg, #fbf7ef 0%, #efe1c8 38%, #1a3358 38%, #0a1628 100%)',
+  'linear-gradient(115deg, #f5ead8 0%, #eef3f8 40%, #0f2040 40%, #1e3f6e 100%)',
+  'linear-gradient(115deg, #fbf7ef 0%, #e2c89a 34%, #0d1e36 34%, #162d4f 100%)',
 ];
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const slides = t('hero.slides');
+  const stats = t('hero.stats');
+
   const [current, setCurrent] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const intervalRef = useRef(null);
@@ -36,9 +23,10 @@ export default function Hero() {
       setCurrent(c => (c + 1) % slides.length);
     }, 6000);
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [slides.length]);
 
   const slide = slides[current];
+  const bg = backgrounds[current];
 
   return (
     <section id="hero" style={{
@@ -47,7 +35,7 @@ export default function Hero() {
       display: 'flex',
       alignItems: 'center',
       overflow: 'hidden',
-      background: slide.bg,
+      background: bg,
       transition: 'background 1s ease',
     }}>
       {/* Geometric Pattern Overlay */}
@@ -243,7 +231,7 @@ export default function Hero() {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'none';
             }}>
-              Explore Projects
+              {t('hero.exploreProjects')}
             </a>
             <a href="#about" style={{
               fontFamily: 'var(--font-body)',
@@ -266,7 +254,7 @@ export default function Hero() {
               e.currentTarget.style.borderColor = 'var(--white-40)';
               e.currentTarget.style.color = 'var(--white)';
             }}>
-              Our Story
+              {t('hero.ourStory')}
             </a>
           </div>
         </div>
@@ -285,16 +273,11 @@ export default function Hero() {
           opacity: loaded ? 1 : 0,
           animation: loaded ? 'fadeUp 0.8s var(--ease-out) 1.2s both' : 'none',
         }}>
-          {[
-            { value: 'OMR 40M+', label: 'Investment Portfolio' },
-            { value: '2019', label: 'Established' },
-            { value: '30+', label: 'Luxury Villas' },
-            { value: '100%', label: 'Phase I Sold Out' },
-          ].map((stat, i) => (
+          {stats.map((stat, i) => (
             <div key={i} style={{
               flex: 1,
               padding: '32px 28px',
-              borderRight: i < 3 ? '1px solid rgba(201,169,110,0.15)' : 'none',
+              borderRight: i < stats.length - 1 ? '1px solid rgba(201,169,110,0.15)' : 'none',
               textAlign: 'center',
             }}>
               <div style={{
@@ -333,7 +316,7 @@ export default function Hero() {
           letterSpacing: '0.3em',
           color: 'rgba(5,13,26,0.42)',
           textTransform: 'uppercase',
-        }}>Scroll</span>
+        }}>{t('hero.scroll')}</span>
         <ChevronDown size={16} color="rgba(5,13,26,0.42)" style={{ animation: 'float 2s ease infinite' }} />
       </div>
       <style>{`

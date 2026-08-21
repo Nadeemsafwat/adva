@@ -1,7 +1,11 @@
 import React from 'react';
 import { Instagram, Linkedin, Facebook, Twitter } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+  const columns = t('footer.columns');
+
   return (
     <footer style={{
       background: 'linear-gradient(135deg, var(--navy-deepest) 0%, var(--navy-deep) 62%, #10264a 100%)',
@@ -31,7 +35,7 @@ export default function Footer() {
               <span style={{ fontFamily: 'var(--font-body)', fontSize: '9px', fontWeight: 400, letterSpacing: '0.35em', color: 'var(--gold)', textTransform: 'uppercase' }}>DEVELOPMENTS · OMAN</span>
             </div>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 300, lineHeight: 1.8, color: 'var(--white-70)', maxWidth: '280px', marginBottom: '32px' }}>
-              Premium real estate development redefining luxury living in the Sultanate of Oman. Built on five years of excellence in Egypt.
+              {t('footer.tagline')}
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
@@ -51,17 +55,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          {[
-            {
-              title: 'Company', links: ['About ADVA', 'Our Story', 'Leadership', 'Our Vision', 'Partnerships']
-            },
-            {
-              title: 'Projects', links: ['ADVIDA (Egypt)', 'ADVA Prime (Oman)', 'ADVA Gardens', 'Commercial', 'Upcoming']
-            },
-            {
-              title: 'Contact', links: ['Muscat Office', 'Cairo HQ', 'Media Enquiries', 'Investor Relations', 'Privacy Policy']
-            },
-          ].map(col => (
+          {columns.map(col => (
             <div key={col.title}>
               <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', fontWeight: 600, letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '24px' }}>
                 {col.title}
@@ -99,12 +93,12 @@ export default function Footer() {
           gap: '16px',
         }}>
           <div style={{ fontFamily: 'var(--font-body)', fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.05em' }}>
-            © 2025 ADVA Developments Oman. All rights reserved.
+            {t('footer.copyright')}
           </div>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)', animation: 'pulse-ring 2s infinite' }} />
             <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: 300, color: 'var(--gold)', letterSpacing: '0.2em' }}>
-              OMAN - EGYPT - MENA REGION
+              {t('footer.region')}
             </span>
           </div>
         </div>

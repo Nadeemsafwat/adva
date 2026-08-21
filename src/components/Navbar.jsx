@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Story', href: '#story' },
-  { label: 'Leadership', href: '#leadership' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Vision', href: '#vision' },
-  { label: 'Sustainability', href: '#sustainability' },
-  { label: 'Contact', href: '#contact' },
-];
+import { Menu, X, Languages } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t, toggleLanguage, language } = useLanguage();
+
+  const navLinks = t('nav.links');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -58,7 +52,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <ul style={{
-            display: 'flex', gap: '40px', listStyle: 'none',
+            display: 'flex', gap: '36px', listStyle: 'none',
             alignItems: 'center',
           }} className="desktop-nav">
             {navLinks.map(link => (
@@ -85,6 +79,17 @@ export default function Navbar() {
               </li>
             ))}
             <li>
+              <button
+                onClick={toggleLanguage}
+                className="lang-toggle"
+                aria-label="Switch language"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <Languages size={13} />
+                {t('nav.langToggle')}
+              </button>
+            </li>
+            <li>
               <a href="#contact" style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '11px',
@@ -106,21 +111,31 @@ export default function Navbar() {
                 e.target.style.background = 'var(--gold)';
                 e.target.style.transform = 'translateY(0)';
               }}>
-                Enquire
+                {t('nav.enquire')}
               </a>
             </li>
           </ul>
 
-          {/* Hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              background: 'none', border: 'none', color: 'var(--white)',
-              cursor: 'pointer', display: 'none', padding: '4px',
-            }}
-            className="hamburger">
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: language toggle + hamburger */}
+          <div style={{ display: 'none', alignItems: 'center', gap: '12px' }} className="mobile-controls">
+            <button
+              onClick={toggleLanguage}
+              className="lang-toggle"
+              aria-label="Switch language"
+              style={{ padding: '7px 12px', fontSize: '10px' }}
+            >
+              {t('nav.langToggle')}
+            </button>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                background: 'none', border: 'none', color: 'var(--white)',
+                cursor: 'pointer', padding: '4px', display: 'flex',
+              }}
+              className="hamburger">
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -135,7 +150,7 @@ export default function Navbar() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '40px',
+          gap: '36px',
           animation: 'fadeIn 0.3s ease',
         }}>
           {navLinks.map(link => (
@@ -164,7 +179,7 @@ export default function Navbar() {
             padding: '14px 40px',
             textDecoration: 'none',
           }}>
-            Enquire Now
+            {t('nav.enquireNow')}
           </a>
         </div>
       )}
@@ -172,7 +187,7 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 900px) {
           .desktop-nav { display: none !important; }
-          .hamburger { display: block !important; }
+          .mobile-controls { display: flex !important; }
         }
 
         @media (max-width: 520px) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap');
+
 :root {
   --navy-deepest: #050d1a;
   --navy-deep: #0a1628;
@@ -27,6 +29,14 @@
   --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
+/* Arabic typography â€” swapped in automatically wherever components
+   reference var(--font-display) / var(--font-heading) / var(--font-body) */
+html[dir="rtl"] {
+  --font-display: 'Cairo', sans-serif;
+  --font-heading: 'Cairo', sans-serif;
+  --font-body: 'Tajawal', sans-serif;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
@@ -45,6 +55,11 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* Slightly larger line-height reads better for Arabic script */
+html[dir="rtl"] body {
+  line-height: 1.15;
 }
 
 ::selection {
@@ -79,6 +94,28 @@ body {
   width: 34px;
   height: 1px;
   background: currentColor;
+}
+
+/* Language toggle button used in the navbar */
+.lang-toggle {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: transparent;
+  border: 1px solid rgba(201,169,110,0.4);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.lang-toggle:hover {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.1);
+  color: var(--gold);
 }
 
 @media (max-width: 768px) {

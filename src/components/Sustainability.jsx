@@ -1,44 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Droplets, TreePine, Wind, Zap } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const features = [
-  {
-    icon: Zap,
-    label: 'Smart Energy Systems',
-    color: '#d69a22',
-    bg: 'rgba(214,154,34,0.12)',
-    border: 'rgba(214,154,34,0.32)',
-    desc: 'Solar integration and intelligent energy management to minimize consumption across all developments.',
-  },
-  {
-    icon: Droplets,
-    label: 'Water Conservation',
-    color: '#1f8fd5',
-    bg: 'rgba(31,143,213,0.12)',
-    border: 'rgba(31,143,213,0.32)',
-    desc: "Advanced irrigation and recycling systems that preserve Oman's precious water resources.",
-  },
-  {
-    icon: Wind,
-    label: 'Climate-Responsive Design',
-    color: '#20a6a0',
-    bg: 'rgba(32,166,160,0.12)',
-    border: 'rgba(32,166,160,0.32)',
-    desc: 'Architecture that works with the natural environment - passive cooling, natural light, cross ventilation.',
-  },
-  {
-    icon: TreePine,
-    label: 'Green Corridors',
-    color: '#2f9b5f',
-    bg: 'rgba(47,155,95,0.12)',
-    border: 'rgba(47,155,95,0.32)',
-    desc: 'Extensive landscaping with native flora creating biodiversity and natural cooling across all communities.',
-  },
+const featureMeta = [
+  { icon: Zap, color: '#d69a22', bg: 'rgba(214,154,34,0.12)', border: 'rgba(214,154,34,0.32)' },
+  { icon: Droplets, color: '#1f8fd5', bg: 'rgba(31,143,213,0.12)', border: 'rgba(31,143,213,0.32)' },
+  { icon: Wind, color: '#20a6a0', bg: 'rgba(32,166,160,0.12)', border: 'rgba(32,166,160,0.32)' },
+  { icon: TreePine, color: '#2f9b5f', bg: 'rgba(47,155,95,0.12)', border: 'rgba(47,155,95,0.32)' },
 ];
 
 export default function Sustainability() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef();
+  const features = t('sustainability.features');
+  const progress = t('sustainability.progress');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -91,7 +67,7 @@ export default function Sustainability() {
               transition: 'all 0.7s ease',
             }}>
               <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 500 }}>Sustainability</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 500 }}>{t('sustainability.kicker')}</span>
             </div>
 
             <h2 style={{
@@ -106,8 +82,8 @@ export default function Sustainability() {
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s var(--ease-out) 0.2s',
             }}>
-              Building for<br />
-              <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Tomorrow</em>
+              {t('sustainability.headingPlain')}<br />
+              <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>{t('sustainability.headingEm')}</em>
             </h2>
 
             <p style={{
@@ -120,14 +96,10 @@ export default function Sustainability() {
               opacity: visible ? 1 : 0,
               transition: 'opacity 0.8s ease 0.4s',
             }}>
-              Sustainability is not a checkbox at ADVA - it is the foundation of every decision we make. From land selection to material sourcing to smart infrastructure, we design with the future in mind.
+              {t('sustainability.intro')}
             </p>
 
-            {[
-              { label: 'Green Space Allocation', pct: 68 },
-              { label: 'Energy Efficiency Rating', pct: 85 },
-              { label: 'Sustainable Materials', pct: 72 },
-            ].map((item, i) => (
+            {progress.map((item, i) => (
               <div key={item.label} style={{
                 marginBottom: '24px',
                 opacity: visible ? 1 : 0,
@@ -155,7 +127,8 @@ export default function Sustainability() {
             gap: '2px',
           }}>
             {features.map((feat, i) => {
-              const Icon = feat.icon;
+              const meta = featureMeta[i];
+              const Icon = meta.icon;
               return (
                 <div key={feat.label} style={{
                   padding: '40px 32px',
@@ -168,13 +141,13 @@ export default function Sustainability() {
                 }}>
                   <div style={{
                     width: '46px', height: '46px',
-                    border: `1px solid ${feat.border}`,
-                    background: feat.bg,
+                    border: `1px solid ${meta.border}`,
+                    background: meta.bg,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     marginBottom: '24px',
-                    boxShadow: `0 12px 28px ${feat.bg}`,
+                    boxShadow: `0 12px 28px ${meta.bg}`,
                   }}>
-                    <Icon size={20} color={feat.color} strokeWidth={2.2} />
+                    <Icon size={20} color={meta.color} strokeWidth={2.2} />
                   </div>
                   <h4 style={{
                     fontFamily: 'var(--font-body)',

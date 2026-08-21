@@ -1,4 +1,5 @@
 import React from 'react';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -12,17 +13,19 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div>
-      <Navbar />
-      <Contact />
-      <Hero />
-      <About />
-      <CompanyStory />
-      <Leadership />
-      <Projects />
-      <Vision />
-      <Sustainability />
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div>
+        <Navbar />
+        <Contact />
+        <Hero />
+        <About />
+        <CompanyStory />
+        <Leadership />
+        <Projects />
+        <Vision />
+        <Sustainability />
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }

@@ -1,22 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Building2, CalendarDays, Check, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const contactDetails = [
-  { icon: MapPin, label: 'Oman Office', value: 'Muscat, Sultanate of Oman' },
-  { icon: Phone, label: 'Priority Line', value: '+968 XX XXX XXXX' },
-  { icon: Mail, label: 'Enquiries', value: 'info@adva-oman.com' },
-];
+const detailIcons = [MapPin, Phone, Mail];
 
-const interests = [
-  'Luxury residential villas',
-  'Mixed-use development',
-  'Investment opportunities',
-  'Landowner partnership',
-  'Commercial units',
-];
-
-  const inputBase = {
-    width: '100%',
+const inputBase = {
+  width: '100%',
   minHeight: '52px',
   border: '1px solid rgba(10,22,40,0.12)',
   background: 'rgba(255,255,255,0.86)',
@@ -50,6 +39,7 @@ function Field({ as: Component = 'input', style, ...props }) {
 }
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
@@ -61,6 +51,11 @@ export default function Contact() {
     message: '',
   });
   const ref = useRef(null);
+
+  const contactDetails = t('contact.details');
+  const interests = t('contact.interests');
+  const proof = t('contact.proof');
+  const fields = t('contact.fields');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -164,7 +159,7 @@ export default function Contact() {
                   fontWeight: 600,
                 }}
               >
-                Private Client Desk
+                {t('contact.kicker')}
               </span>
             </div>
 
@@ -180,7 +175,7 @@ export default function Contact() {
                 marginBottom: '30px',
               }}
             >
-              Secure your place in Oman's next landmark address.
+              {t('contact.heading')}
             </h1>
 
             <p
@@ -194,15 +189,11 @@ export default function Contact() {
                 marginBottom: '42px',
               }}
             >
-              Speak with ADVA's development team about residences, investor allocations, and partnership opportunities across Muscat's emerging premium communities.
+              {t('contact.intro')}
             </p>
 
             <div className="contact-proof-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', maxWidth: '720px', marginBottom: '44px' }}>
-              {[
-                { value: '24h', label: 'Response window' },
-                { value: 'Oman', label: 'Focused expansion' },
-                { value: 'OMR 40M+', label: 'Planned portfolio' },
-              ].map((item) => (
+              {proof.map((item) => (
                 <div
                   key={item.label}
                   style={{
@@ -219,8 +210,8 @@ export default function Contact() {
             </div>
 
             <div className="contact-details-row" style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
-              {contactDetails.map((item) => {
-                const Icon = item.icon;
+              {contactDetails.map((item, i) => {
+                const Icon = detailIcons[i];
                 return (
                   <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '210px' }}>
                     <span
@@ -271,10 +262,10 @@ export default function Contact() {
                   <Check size={28} color="var(--gold)" />
                 </div>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '44px', fontWeight: 300, color: 'var(--navy-deepest)', marginBottom: '14px' }}>
-                  Enquiry Received
+                  {t('contact.submittedTitle')}
                 </h2>
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', lineHeight: 1.8, color: 'rgba(5,13,26,0.68)', maxWidth: '360px' }}>
-                  Thank you. ADVA's client desk will review your request and respond within one business day.
+                  {t('contact.submittedText')}
                 </p>
               </div>
             ) : (
@@ -291,10 +282,10 @@ export default function Contact() {
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '18px', marginBottom: '30px' }}>
                   <div>
                     <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', letterSpacing: '0.24em', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 700, marginBottom: '12px' }}>
-                      Start Here
+                      {t('contact.startHere')}
                     </div>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(34px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.02, color: 'var(--navy-deepest)', letterSpacing: '0' }}>
-                      Request a private consultation
+                      {t('contact.formTitle')}
                     </h2>
                   </div>
                   <div
@@ -316,14 +307,14 @@ export default function Contact() {
                 <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
                   <Field
                     type="text"
-                    placeholder="Full name"
+                    placeholder={fields.name}
                     required
                     value={form.name}
                     onChange={(event) => setForm({ ...form, name: event.target.value })}
                   />
                   <Field
                     type="email"
-                    placeholder="Email address"
+                    placeholder={fields.email}
                     required
                     value={form.email}
                     onChange={(event) => setForm({ ...form, email: event.target.value })}
@@ -333,7 +324,7 @@ export default function Contact() {
                 <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
                   <Field
                     type="tel"
-                    placeholder="Phone / WhatsApp"
+                    placeholder={fields.phone}
                     value={form.phone}
                     onChange={(event) => setForm({ ...form, phone: event.target.value })}
                   />
@@ -344,7 +335,7 @@ export default function Contact() {
                     onChange={(event) => setForm({ ...form, interest: event.target.value })}
                     style={{ appearance: 'none', cursor: 'pointer' }}
                   >
-                    <option value="" disabled>Interest</option>
+                    <option value="" disabled>{fields.interestDefault}</option>
                     {interests.map((interest) => (
                       <option key={interest} value={interest}>{interest}</option>
                     ))}
@@ -357,17 +348,16 @@ export default function Contact() {
                   onChange={(event) => setForm({ ...form, budget: event.target.value })}
                   style={{ appearance: 'none', cursor: 'pointer', marginBottom: '12px' }}
                 >
-                  <option value="">Preferred investment range</option>
-                  <option value="exploring">Exploring options</option>
-                  <option value="250-500">OMR 250k - 500k</option>
-                  <option value="500-1m">OMR 500k - 1m</option>
-                  <option value="1m+">OMR 1m+</option>
+                  <option value="">{fields.budgetDefault}</option>
+                  {fields.budgetOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
                 </Field>
 
                 <Field
                   as="textarea"
                   rows={5}
-                  placeholder="Tell us what you are looking for"
+                  placeholder={fields.message}
                   value={form.message}
                   onChange={(event) => setForm({ ...form, message: event.target.value })}
                   style={{ resize: 'vertical', minHeight: '126px', marginBottom: '16px', lineHeight: 1.65 }}
@@ -403,13 +393,13 @@ export default function Contact() {
                   }}
                 >
                   <Send size={15} />
-                  Send Enquiry
+                  {t('contact.submit')}
                 </button>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginTop: '22px', flexWrap: 'wrap' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(5,13,26,0.58)', lineHeight: 1.6 }}>
                     <CalendarDays size={14} color="var(--gold)" />
-                    Priority callback within 24 hours
+                    {t('contact.callback')}
                   </span>
                   <a
                     href="#projects"
@@ -426,7 +416,7 @@ export default function Contact() {
                       textDecoration: 'none',
                     }}
                   >
-                    View portfolio
+                    {t('contact.viewPortfolio')}
                     <ArrowRight size={14} />
                   </a>
                 </div>

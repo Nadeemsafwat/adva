@@ -1,51 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CheckCircle2, Compass, DraftingCompass, Gem, Handshake, Leaf, Sparkles, TimerReset } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const timeline = [
-  {
-    year: '2006',
-    title: 'Construction Roots',
-    text: 'Started operations in construction and development, building the technical foundation behind ADVA.',
-  },
-  {
-    year: '2011',
-    title: 'Integrated Capabilities',
-    text: 'Expanded beyond contracting into a multi-disciplinary business structure spanning design, construction, and development.',
-  },
-  {
-    year: '2019',
-    title: 'ADVA Developments',
-    text: 'Launched ADVA Developments with a focus on luxury real estate, premium homes, and elevated living experiences.',
-  },
-  {
-    year: 'Today',
-    title: 'Future Urban Growth',
-    text: 'Delivering sustainable developments aligned with long-term community value and environmental responsibility.',
-  },
-];
-
-const reasons = [
-  { icon: TimerReset, title: 'Proven Experience', text: 'Built on foundations established in 2006, with expertise across construction, design, and development.' },
-  { icon: DraftingCompass, title: 'Integrated Expertise', text: 'Backed by specialized companies covering construction, contracting, architecture, and real estate development.' },
-  { icon: Gem, title: 'Luxury Living', text: 'Focused on premium homes designed to enhance quality of life and everyday comfort.' },
-  { icon: Leaf, title: 'Sustainable Development', text: 'Committed to environmentally responsible projects that support long-term community growth.' },
-  { icon: Sparkles, title: 'Innovation & Functionality', text: 'Creating places where modern design, practical living, and sustainability work together.' },
-  { icon: Handshake, title: 'Customer-Centric Delivery', text: 'Guided by trust, delivery discipline, and a close understanding of customer expectations.' },
-];
-
-const values = [
-  'Excellence in Quality',
-  'Integrity and Trust',
-  'Innovation and Creativity',
-  'Sustainability',
-  'Customer-Centric Approach',
-  'Commitment to Delivery',
-  'Continuous Growth',
-];
+const reasonIcons = [TimerReset, DraftingCompass, Gem, Leaf, Sparkles, Handshake];
 
 export default function CompanyStory() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
+
+  const timeline = t('story.timeline');
+  const reasons = t('story.reasons');
+  const values = t('story.values');
+  const visionMission = t('story.visionMission');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,7 +76,7 @@ export default function CompanyStory() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
               <span style={{ width: '34px', height: '1px', background: 'var(--gold)' }} />
               <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.28em', color: 'var(--navy-accent)', textTransform: 'uppercase', fontWeight: 700 }}>
-                Company Story
+                {t('story.kicker')}
               </span>
             </div>
 
@@ -124,7 +91,7 @@ export default function CompanyStory() {
                 marginBottom: '28px',
               }}
             >
-              Built from construction. Refined for luxury living.
+              {t('story.heading')}
             </h2>
 
             <p
@@ -136,7 +103,7 @@ export default function CompanyStory() {
                 maxWidth: '520px',
               }}
             >
-              ADVA Developments is built on over a decade of experience in construction, design, and development. What began in 2006 as a construction journey evolved into an integrated ecosystem capable of delivering every stage of a project with precision.
+              {t('story.intro')}
             </p>
           </div>
 
@@ -159,26 +126,15 @@ export default function CompanyStory() {
             >
               <Compass size={24} color="var(--gold)" style={{ marginBottom: '18px' }} />
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '38px', fontWeight: 300, color: 'var(--navy-deepest)', lineHeight: 1.05, marginBottom: '18px' }}>
-                An integrated development ecosystem.
+                {t('story.ecosystemTitle')}
               </h3>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', lineHeight: 1.85, color: 'var(--ink-soft)' }}>
-                Today, ADVA operates within a connected group spanning construction, architecture, and development services. This structure gives the company control over quality, efficiency, detailing, and delivery from concept to completion.
+                {t('story.ecosystemText')}
               </p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }} className="story-vision-grid">
-              {[
-                {
-                  label: 'Vision',
-                  title: 'Future-ready communities',
-                  text: 'To create sustainable, high-quality developments that enrich lives, support community growth, and contribute to the future of urban living.',
-                },
-                {
-                  label: 'Mission',
-                  title: 'Exceptional places to live',
-                  text: 'To develop residential and mixed-use communities that combine luxury, quality, sustainability, meticulous planning, and uncompromising construction standards.',
-                },
-              ].map((item) => (
+              {visionMission.map((item) => (
                 <div
                   key={item.label}
                   style={{
@@ -251,11 +207,11 @@ export default function CompanyStory() {
             }}
           >
             <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', letterSpacing: '0.24em', color: 'var(--gold-light)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '24px' }}>
-              Why Choose ADVA
+              {t('story.whyChoose')}
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }} className="story-reasons-grid">
-              {reasons.map((item) => {
-                const Icon = item.icon;
+              {reasons.map((item, i) => {
+                const Icon = reasonIcons[i];
                 return (
                   <div key={item.title} style={{ display: 'grid', gridTemplateColumns: '42px 1fr', gap: '14px' }}>
                     <div style={{ width: '42px', height: '42px', border: '1px solid rgba(201,169,110,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -283,7 +239,7 @@ export default function CompanyStory() {
             }}
           >
             <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', letterSpacing: '0.24em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '22px' }}>
-              Core Values
+              {t('story.coreValues')}
             </div>
             <div style={{ display: 'grid', gap: '12px' }}>
               {values.map((value) => (

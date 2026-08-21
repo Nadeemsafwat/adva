@@ -1,52 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const projects = [
-  {
-    id: 1,
-    name: 'BAUSHER',
-    location: 'Bausher, Muscat',
-    tag: 'Residential · Oman',
-    tagColor: '#c9a96e',
-    type: 'Residential Development, COMMERCIAL',
-    area: 'TBA',
-    units: '47',
-    status: 'Launching SOON',
-    description: 'A distinguished residential development in the heart of Bausher — combining modern architecture with the warmth of Omani living, set within a thriving urban community.',
-    image: '/Images/Bushar.png',
-    dark: true,
-  },
-  {
-    id: 2,
-    name: 'AL KHOUD',
-    location: 'Al Khoud, Muscat',
-    tag: 'Mixed-Use · Oman',
-    tagColor: '#e2c89a',
-    type: 'Residential Development, COMMERCIAL',
-    area: 'TBA',
-    units: '151',
-    status: 'Launching Soon',
-    description: "Positioned in one of Muscat's most connected districts — Al Khoud offers a bold vision for mixed-use living where contemporary design meets community-centred lifestyle.",
-    image: '/Images/AL-khoud.jpg',
-    dark: true,
-  },
-  {
-    id: 3,
-    name: 'AL KHUWAIR',
-    location: 'Al Khuwair, Muscat',
-    tag: 'Premium · Oman',
-    tagColor: '#a0b8d8',
-    type: 'Mixed-Use Development',
-    area: 'TBA',
-    units: '130',
-    status: 'Launching Soon',
-    description: 'A premium address in Al Khuwair — Muscat\'s prestigious diplomatic and commercial corridor — offering elevated residences crafted for discerning buyers.',
-    image: '/Images/khowair.jpeg',
-    dark: true,
-  },
+const projectMeta = [
+  { tagColor: '#c9a96e', image: '/Images/Bushar.png' },
+  { tagColor: '#e2c89a', image: '/Images/AL-khoud.jpg' },
+  { tagColor: '#a0b8d8', image: '/Images/khowair.jpeg' },
 ];
 
-function ProjectCard({ project, index, visible }) {
+function ProjectCard({ project, meta, specLabels, viewDetailsLabel, index, visible }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -74,7 +36,7 @@ function ProjectCard({ project, index, visible }) {
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: `url(${project.image})`,
+        backgroundImage: `url(${meta.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         transition: 'transform 0.7s var(--ease-out)',
@@ -109,7 +71,7 @@ function ProjectCard({ project, index, visible }) {
         zIndex: 1,
         height: '2px',
         background: hovered
-          ? `linear-gradient(90deg, ${project.tagColor}, transparent)`
+          ? `linear-gradient(90deg, ${meta.tagColor}, transparent)`
           : 'transparent',
         transition: 'background 0.4s ease',
       }} />
@@ -121,12 +83,12 @@ function ProjectCard({ project, index, visible }) {
           display: 'inline-flex', alignItems: 'center', gap: '8px',
           marginBottom: '32px',
         }}>
-          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: project.tagColor }} />
+          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: meta.tagColor }} />
           <span style={{
             fontFamily: 'var(--font-body)',
             fontSize: '10px',
             letterSpacing: '0.25em',
-            color: project.tagColor,
+            color: meta.tagColor,
             textTransform: 'uppercase',
             fontWeight: 500,
           }}>{project.tag}</span>
@@ -173,10 +135,10 @@ function ProjectCard({ project, index, visible }) {
           borderTop: '1px solid rgba(255,255,255,0.12)',
         }}>
           {[
-            { label: 'Type', val: project.type },
-            { label: 'Total Area', val: project.area },
-            { label: 'Units', val: project.units },
-            { label: 'Status', val: project.status },
+            { label: specLabels.type, val: project.type },
+            { label: specLabels.area, val: project.area },
+            { label: specLabels.units, val: project.units },
+            { label: specLabels.status, val: project.status },
           ].map(spec => (
             <div key={spec.label}>
               <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', letterSpacing: '0.25em', color: 'rgba(255,255,255,0.38)', textTransform: 'uppercase', marginBottom: '4px' }}>
@@ -196,7 +158,7 @@ function ProjectCard({ project, index, visible }) {
           transition: 'color 0.3s',
         }}>
           <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 500 }}>
-            View Details
+            {viewDetailsLabel}
           </span>
           <ArrowRight size={14} style={{ transform: hovered ? 'translateX(4px)' : 'none', transition: 'transform 0.3s' }} />
         </div>
@@ -206,8 +168,12 @@ function ProjectCard({ project, index, visible }) {
 }
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef();
+
+  const projects = t('projects.list');
+  const specLabels = t('projects.specLabels');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -247,7 +213,7 @@ export default function Projects() {
             transition: 'all 0.7s ease',
           }}>
             <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--navy-accent)', textTransform: 'uppercase', fontWeight: 700 }}>Portfolio</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--navy-accent)', textTransform: 'uppercase', fontWeight: 700 }}>{t('projects.kicker')}</span>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '40px', flexWrap: 'wrap' }}>
@@ -262,7 +228,7 @@ export default function Projects() {
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s var(--ease-out) 0.2s',
             }}>
-              Our<br /><em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Projects</em>
+              {t('projects.headingPlain')}<br /><em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>{t('projects.headingEm')}</em>
             </h2>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -274,7 +240,7 @@ export default function Projects() {
               opacity: visible ? 1 : 0,
               transition: 'opacity 0.8s ease 0.4s',
             }}>
-              From our proven track record in Egypt to our expanding presence across Oman — each development is a testament to our commitment to quality.
+              {t('projects.intro')}
             </p>
           </div>
         </div>
@@ -285,7 +251,15 @@ export default function Projects() {
           gap: '2px',
         }}>
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} visible={visible} />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              meta={projectMeta[i]}
+              specLabels={specLabels}
+              viewDetailsLabel={t('projects.viewDetails')}
+              index={i}
+              visible={visible}
+            />
           ))}
         </div>
       </div>

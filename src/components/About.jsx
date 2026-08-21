@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function About() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef();
 
@@ -59,7 +61,7 @@ export default function About() {
               color: 'var(--navy-accent)',
                 textTransform: 'uppercase',
                 fontWeight: 500,
-              }}>Who We Are</span>
+              }}>{t('about.kicker')}</span>
             </div>
 
             <h2 style={{
@@ -74,8 +76,8 @@ export default function About() {
               transform: visible ? 'translateY(0)' : 'translateY(40px)',
               transition: 'all 0.9s var(--ease-out) 0.2s',
             }}>
-              A Legacy of<br />
-              <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Distinction</em>
+              {t('about.headingLine1')}<br />
+              <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>{t('about.headingEm')}</em>
             </h2>
 
             <div style={{ height: '1px', background: 'linear-gradient(90deg, var(--gold), transparent)', marginBottom: '40px', maxWidth: '80px',
@@ -93,7 +95,7 @@ export default function About() {
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s var(--ease-out) 0.4s',
             }}>
-              ADVA Developments is a premium real estate developer established in 2019, with an OMR 10 million equivalent capital base and an ambitious investment plan exceeding OMR 40 million. Now bringing that same commitment to excellence to the Sultanate of Oman.
+              {t('about.p1')}
             </p>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -106,7 +108,7 @@ export default function About() {
               transform: visible ? 'translateY(0)' : 'translateY(30px)',
               transition: 'all 0.8s var(--ease-out) 0.5s',
             }}>
-              We integrate design, construction, and interior expertise under one roof — delivering communities that combine luxury, sustainability, and thoughtful modern architecture.
+              {t('about.p2')}
             </p>
 
             <div style={{
@@ -114,7 +116,7 @@ export default function About() {
               opacity: visible ? 1 : 0,
               transition: 'opacity 0.8s ease 0.7s',
             }}>
-              {['Luxury Design', 'Sustainability', 'Innovation', 'Community'].map(tag => (
+              {t('about.tags').map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '10px',
@@ -166,7 +168,7 @@ export default function About() {
                 color: 'var(--gold)',
                 textTransform: 'uppercase',
                 marginBottom: '24px',
-              }}>Our Mission</div>
+              }}>{t('about.missionLabel')}</div>
 
               <p style={{
                 fontFamily: 'var(--font-display)',
@@ -177,7 +179,7 @@ export default function About() {
                 fontStyle: 'italic',
                 marginBottom: '40px',
               }}>
-                "To bring about positive change in the real estate sector by offering distinctive projects that combine high quality, innovative design, and environmental sustainability."
+                {t('about.missionQuote')}
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -187,14 +189,14 @@ export default function About() {
                   fontWeight: 600,
                   color: 'var(--white)',
                   letterSpacing: '0.1em',
-                }}>Ahmed El-Shennawy</div>
+                }}>{t('about.ceoName')}</div>
                 <div style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '11px',
                   color: 'var(--gold)',
                   letterSpacing: '0.2em',
                   textTransform: 'uppercase',
-                }}>Chairman & CEO</div>
+                }}>{t('about.ceoTitle')}</div>
               </div>
             </div>
 
@@ -218,7 +220,7 @@ export default function About() {
                 fontWeight: 500,
                 color: 'var(--gold)',
                 lineHeight: 1,
-              }}>5+</div>
+              }}>{t('about.statValue')}</div>
               <div style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '10px',
@@ -226,7 +228,7 @@ export default function About() {
                 color: 'rgba(5,13,26,0.62)',
                 textTransform: 'uppercase',
                 marginTop: '4px',
-              }}>Years of Excellence</div>
+              }}>{t('about.statLabel')}</div>
             </div>
           </div>
         </div>

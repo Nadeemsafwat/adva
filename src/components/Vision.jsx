@@ -1,32 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Shield, Leaf, Gem, Users } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const pillars = [
-  {
-    icon: Gem,
-    title: 'Luxury Redefined',
-    desc: 'Every detail is curated to exceed expectation — from architectural form to interior finishes, each space is a work of art.',
-  },
-  {
-    icon: Leaf,
-    title: 'Sustainable Living',
-    desc: 'Incorporating smart, eco-conscious systems that reduce environmental footprint without compromising comfort or elegance.',
-  },
-  {
-    icon: Shield,
-    title: 'Uncompromising Quality',
-    desc: 'Partnering with world-class engineering consultants like EGEC to ensure every structural and safety standard is exceeded.',
-  },
-  {
-    icon: Users,
-    title: 'Community First',
-    desc: 'Designing spaces that foster connection — commercial centers, entertainment zones, and green corridors that bring people together.',
-  },
-];
+const pillarIcons = [Gem, Leaf, Shield, Users];
 
 export default function Vision() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef();
+  const pillars = t('vision.pillars');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,7 +52,7 @@ export default function Vision() {
             transition: 'opacity 0.8s ease',
           }}>
             <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 500 }}>Our Vision</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 500 }}>{t('vision.kicker')}</span>
             <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
           </div>
 
@@ -86,8 +68,8 @@ export default function Vision() {
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.8s var(--ease-out) 0.2s',
           }}>
-            Four Pillars of<br />
-            <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Excellence</em>
+            {t('vision.headingPlain')}<br />
+            <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>{t('vision.headingEm')}</em>
           </h2>
 
           <p style={{
@@ -101,7 +83,7 @@ export default function Vision() {
             opacity: visible ? 1 : 0,
             transition: 'opacity 0.8s ease 0.4s',
           }}>
-            ADVA's approach to development is guided by four foundational principles that shape every decision, every design, and every delivery.
+            {t('vision.intro')}
           </p>
         </div>
 
@@ -111,12 +93,9 @@ export default function Vision() {
           gridTemplateColumns: 'repeat(4, 1fr)',
           gap: '14px',
         }}>
-          {pillars.map((pillar, i) => {
-            const Icon = pillar.icon;
-            return (
-              <PillarCard key={i} pillar={pillar} Icon={Icon} index={i} visible={visible} />
-            );
-          })}
+          {pillars.map((pillar, i) => (
+            <PillarCard key={pillar.title} pillar={pillar} Icon={pillarIcons[i]} index={i} visible={visible} />
+          ))}
         </div>
 
         {/* Bottom feature strip */}
@@ -135,18 +114,18 @@ export default function Vision() {
           transition: 'all 0.9s var(--ease-out) 0.8s',
         }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: '48px', fontWeight: 500, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px' }}>OMR 16M</div>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', color: 'rgba(5,13,26,0.58)', textTransform: 'uppercase' }}>Equivalent Sales - ADVIDA Project</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: '48px', fontWeight: 500, color: 'var(--gold)', lineHeight: 1, marginBottom: '8px' }}>{t('vision.stripValue')}</div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', color: 'rgba(5,13,26,0.58)', textTransform: 'uppercase' }}>{t('vision.stripLabel')}</div>
           </div>
 
           <div style={{ width: '1px', height: '80px', background: 'rgba(201,169,110,0.35)' }} />
 
           <div>
             <p style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: 300, fontStyle: 'italic', color: 'var(--navy-deepest)', lineHeight: 1.5, marginBottom: '16px' }}>
-              "We are thrilled to continue our mission of transforming the luxury real estate landscape - now in Oman."
+              {t('vision.stripQuote')}
             </p>
             <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', letterSpacing: '0.2em', color: 'var(--gold)', textTransform: 'uppercase' }}>
-              Ahmed El-Shennawy - Chairman & CEO
+              {t('vision.stripName')}
             </div>
           </div>
         </div>
@@ -195,6 +174,16 @@ export default function Vision() {
 
           #vision .container > div:last-child p {
             font-size: 20px !important;
+          }
+        }
+
+        html[dir="rtl"] #vision .container > div:first-child {
+          text-align: center !important;
+        }
+
+        @media (max-width: 600px) {
+          html[dir="rtl"] #vision .container > div:first-child {
+            text-align: right !important;
           }
         }
       `}</style>
