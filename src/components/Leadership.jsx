@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 const credentialIcons = [Landmark, Building2, UsersRound];
 
 export default function Leadership() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
   const credentials = t('leadership.credentials');
@@ -28,7 +28,11 @@ export default function Leadership() {
       ref={ref}
       style={{
         padding: '130px 0',
-        background: 'linear-gradient(135deg, var(--navy-deepest) 0%, var(--navy-mid) 54%, var(--ivory) 54%, var(--gold-pale) 100%)',
+        // In RTL the text column moves to the right, so the split background
+        // needs to mirror with it to keep the light text legible.
+        background: isRTL
+          ? 'linear-gradient(225deg, var(--navy-deepest) 0%, var(--navy-mid) 54%, var(--ivory) 54%, var(--gold-pale) 100%)'
+          : 'linear-gradient(135deg, var(--navy-deepest) 0%, var(--navy-mid) 54%, var(--ivory) 54%, var(--gold-pale) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
