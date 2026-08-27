@@ -56,7 +56,6 @@ export default function Contact() {
   const ref = useRef(null);
 
   const contactDetails = t('contact.details');
-  const interests = t('contact.interests');
   const proof = t('contact.proof');
   const fields = t('contact.fields');
 
@@ -300,7 +299,7 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={formShell}>
+              <form onSubmit={handleSubmit} autoComplete="off" style={formShell}>
                 <div
                   style={{
                     position: 'absolute',
@@ -339,13 +338,17 @@ export default function Contact() {
                   <Field
                     type="text"
                     placeholder={fields.name}
+                    aria-label={fields.name}
+                    autoComplete="off"
                     required
                     value={form.name}
                     onChange={(event) => setForm({ ...form, name: event.target.value })}
                   />
                   <Field
-                    type="email"
+                    type="text"
                     placeholder={fields.email}
+                    aria-label={fields.email}
+                    autoComplete="off"
                     required
                     value={form.email}
                     onChange={(event) => setForm({ ...form, email: event.target.value })}
@@ -354,41 +357,40 @@ export default function Contact() {
 
                 <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
                   <Field
-                    type="tel"
+                    type="text"
                     placeholder={fields.phone}
+                    aria-label={fields.phone}
+                    autoComplete="off"
                     value={form.phone}
                     onChange={(event) => setForm({ ...form, phone: event.target.value })}
                   />
                   <Field
-                    as="select"
+                    type="text"
                     required
+                    placeholder={fields.interestDefault}
+                    aria-label={fields.interestDefault}
+                    autoComplete="off"
                     value={form.interest}
                     onChange={(event) => setForm({ ...form, interest: event.target.value })}
-                    style={{ appearance: 'none', cursor: 'pointer' }}
-                  >
-                    <option value="" disabled>{fields.interestDefault}</option>
-                    {interests.map((interest) => (
-                      <option key={interest} value={interest}>{interest}</option>
-                    ))}
-                  </Field>
+                  />
                 </div>
 
                 <Field
-                  as="select"
+                  type="text"
+                  placeholder={fields.budgetDefault}
+                  aria-label={fields.budgetDefault}
+                  autoComplete="off"
                   value={form.budget}
                   onChange={(event) => setForm({ ...form, budget: event.target.value })}
-                  style={{ appearance: 'none', cursor: 'pointer', marginBottom: '12px' }}
-                >
-                  <option value="">{fields.budgetDefault}</option>
-                  {fields.budgetOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                </Field>
+                  style={{ marginBottom: '12px' }}
+                />
 
                 <Field
                   as="textarea"
                   rows={5}
                   placeholder={fields.message}
+                  aria-label={fields.message}
+                  autoComplete="off"
                   value={form.message}
                   onChange={(event) => setForm({ ...form, message: event.target.value })}
                   style={{ resize: 'vertical', minHeight: '126px', marginBottom: '16px', lineHeight: 1.65 }}
