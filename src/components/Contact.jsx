@@ -27,6 +27,10 @@ function Field({ as: Component = 'input', style, ...props }) {
       {...props}
       style={{ ...inputBase, ...style }}
       onFocus={(event) => {
+        // Browsers may ignore autocomplete="off" for contact details. Fields are
+        // initially read-only so the browser does not offer saved contacts, then
+        // unlocked as soon as the visitor focuses them.
+        event.currentTarget.removeAttribute('readonly');
         event.currentTarget.style.borderColor = 'rgba(201,169,110,0.9)';
         event.currentTarget.style.boxShadow = '0 0 0 4px rgba(201,169,110,0.14)';
         event.currentTarget.style.background = 'var(--white)';
@@ -339,7 +343,9 @@ export default function Contact() {
                     type="text"
                     placeholder={fields.name}
                     aria-label={fields.name}
-                    autoComplete="off"
+                    name="adva-enquiry-name"
+                    autoComplete="new-password"
+                    readOnly
                     required
                     value={form.name}
                     onChange={(event) => setForm({ ...form, name: event.target.value })}
@@ -348,7 +354,9 @@ export default function Contact() {
                     type="text"
                     placeholder={fields.email}
                     aria-label={fields.email}
-                    autoComplete="off"
+                    name="adva-enquiry-email"
+                    autoComplete="new-password"
+                    readOnly
                     required
                     value={form.email}
                     onChange={(event) => setForm({ ...form, email: event.target.value })}
@@ -360,7 +368,9 @@ export default function Contact() {
                     type="text"
                     placeholder={fields.phone}
                     aria-label={fields.phone}
-                    autoComplete="off"
+                    name="adva-enquiry-phone"
+                    autoComplete="new-password"
+                    readOnly
                     value={form.phone}
                     onChange={(event) => setForm({ ...form, phone: event.target.value })}
                   />
@@ -369,7 +379,9 @@ export default function Contact() {
                     required
                     placeholder={fields.interestDefault}
                     aria-label={fields.interestDefault}
-                    autoComplete="off"
+                    name="adva-enquiry-interest"
+                    autoComplete="new-password"
+                    readOnly
                     value={form.interest}
                     onChange={(event) => setForm({ ...form, interest: event.target.value })}
                   />
@@ -379,7 +391,9 @@ export default function Contact() {
                   type="text"
                   placeholder={fields.budgetDefault}
                   aria-label={fields.budgetDefault}
-                  autoComplete="off"
+                  name="adva-enquiry-budget"
+                  autoComplete="new-password"
+                  readOnly
                   value={form.budget}
                   onChange={(event) => setForm({ ...form, budget: event.target.value })}
                   style={{ marginBottom: '12px' }}
@@ -390,7 +404,9 @@ export default function Contact() {
                   rows={5}
                   placeholder={fields.message}
                   aria-label={fields.message}
-                  autoComplete="off"
+                  name="adva-enquiry-message"
+                  autoComplete="new-password"
+                  readOnly
                   value={form.message}
                   onChange={(event) => setForm({ ...form, message: event.target.value })}
                   style={{ resize: 'vertical', minHeight: '126px', marginBottom: '16px', lineHeight: 1.65 }}
