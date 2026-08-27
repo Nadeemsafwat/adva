@@ -4,6 +4,8 @@ import { useLanguage } from '../context/LanguageContext';
 
 const detailIcons = [MapPin, Phone, Mail];
 
+const CONTACT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwIHhd5Y6CHwjNVa3OSrvRSGNmwi2qpgmfLxrQyqGIqoqjzTMoiK6MgRuyc62HUjUY3/exec';
+
 const inputBase = {
   width: '100%',
   minHeight: '52px',
@@ -42,6 +44,7 @@ export default function Contact() {
   const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -69,9 +72,37 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      // Apps Script web apps do not return CORS headers by default. no-cors sends
+      // the submission successfully, although the browser cannot read its response.
+      await fetch(CONTACT_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(form),
+      });
+
+      setSubmitted(true);
+      setForm({
+        name: '',
+        email: '',
+        phone: '',
+        interest: '',
+        budget: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('Unable to submit contact request:', error);
+      window.alert('Unable to send your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formShell = {
@@ -365,6 +396,8 @@ export default function Contact() {
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                   style={{
                     width: '100%',
                     minHeight: '60px',
@@ -380,7 +413,8 @@ export default function Contact() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '12px',
-                    cursor: 'pointer',
+                    cursor: isSubmitting ? 'wait' : 'pointer',
+                    opacity: isSubmitting ? 0.7 : 1,
                     transition: 'transform 0.25s ease, box-shadow 0.25s ease',
                   }}
                   onMouseEnter={(event) => {
@@ -393,7 +427,7 @@ export default function Contact() {
                   }}
                 >
                   <Send size={15} />
-                  {t('contact.submit')}
+                  {isSubmitting ? 'Sending…' : t('contact.submit')}
                 </button>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginTop: '22px', flexWrap: 'wrap' }}>
